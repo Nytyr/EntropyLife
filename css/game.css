@@ -14,20 +14,57 @@
  * limitations under the License.
  */
  body {
- 	background-color: #000;
+ 	background: #ecf0f1;
  }
-.item{
-	width: 8px;
-	height: 8px;
-	background-color: #000000;
-	float: left;
-}
-.item-separator{
-	clear: both;
-}
-.cell-dead{
-	background-color: #000000;
-}
-.cell-alive{
-	background-color: #ffffff;
-}
+ .button{
+ 	display: inline-block;
+ 	padding: 6px 12px;
+ 	margin-bottom: 0;
+ 	font-size: 14px;
+ 	font-weight: normal;
+ 	line-height: 1.428571429;
+ 	text-align: center;
+ 	white-space: nowrap;
+ 	vertical-align: middle;
+ 	cursor: pointer;
+ 	border: 1px solid transparent;
+ 	border-radius: 4px;
+ 	-webkit-user-select: none;
+ 	-moz-user-select: none;
+ 	-ms-user-select: none;
+ 	-o-user-select: none;
+ 	user-select: none;
+ 	color: #ffffff;
+ 	background-color: #428bca;
+ 	border-color: #357ebd;
+ }
+ .main-container{
+ 	position: absolute;
+ 	margin-top: 50px;
+	left: 50%;
+	margin-left: -350px;
+	padding: 20px;
+ }
+ #content{
+ 	height: 420px;
+ }
+ #controls{
+ 	text-align: center;
+ }
+ .item{
+ 	width: 7px;
+ 	height: 7px;
+ 	background-color: #000000;
+ 	float: left;
+ }
+ .item-separator{
+ 	clear: both;
+ }
+ .cell-dead{
+ 	border:1px solid #1F8500;
+ 	background-color: #000000;
+ }
+ .cell-alive{
+ 	border:1px solid #ffffff;
+ 	background-color: #ffffff;
+ }
