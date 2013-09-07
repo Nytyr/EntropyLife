@@ -13,11 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const width 	= 80;
-const height 	= 50;
-const seed 		= 14;
-const speed 	= 1000; // 1 second
+ const width 	= 70;
+ const height 	= 40;
+ const seed 	= 14;
+ const speed 	= 1000; // 1 second
+
 var nextAlive 	= {};
+var interval;
+var intervalRunning = false;
 
 function generateMap(){
 	var content = $("#content");
@@ -51,7 +54,25 @@ function generateRandomCells(){
 }
 
 function iterateMap(){
-	setInterval(function(){reproduce()}, speed);
+	interval = setInterval(function(){reproduce()}, speed);
+	intervalRunning = true;
+}
+
+function stopIterate(){
+	window.clearInterval(interval);
+	intervalRunning = false;
+}
+
+function toggleIterate(){
+	var toggler = $("#toggler");
+	if (intervalRunning){
+		stopIterate();
+		toggler.html("Start");
+	}else{
+		iterateMap();
+		toggler.html("Stop");
+	}
+
 }
 
 function getCell(x,y){
@@ -112,7 +133,7 @@ function godsFinger(){
 	$('#content').bind('click', function(event) {
 		var cell = $("#"+event.target.id);
 		aliveToDead(cell.hasClass("cell-alive"), cell);
-	});ªiiter
+	});
 }
 
 // Starts the magic
