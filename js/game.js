@@ -53,6 +53,12 @@ function generateRandomCells(){
 	});
 }
 
+function clearCells(){
+	$('#content').children('div').each(function () {
+		aliveToDead(true, $(this));
+	});
+}
+
 function iterateMap(){
 	interval = setInterval(function(){reproduce()}, speed);
 	intervalRunning = true;
