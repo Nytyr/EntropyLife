@@ -36,13 +36,17 @@ function getItem(id){
 	return "<div class='item' id='"+id+"'></div>";
 }
 
+function aliveToDead(isAlive, cell) {
+	if (isAlive){
+		cell.removeClass("cell-alive").addClass("cell-dead");
+	}else{
+		cell.removeClass("cell-dead").addClass("cell-alive");
+	}
+}
+
 function generateRandomCells(){
 	$('#content').children('div').each(function () {
-		if (Math.floor((Math.random()*100)+1) > seed){
-			$(this).removeClass("cell-alive").addClass("cell-dead");
-		}else{
-			$(this).removeClass("cell-dead").addClass("cell-alive");
-		}
+		aliveToDead(Math.floor((Math.random()*100)+1) > seed, $(this));
 	});
 }
 
@@ -59,8 +63,8 @@ function getCell(x,y){
 
 function setCell(x,y){
 	var aliveCounter = 0;
-	x = parseInt(x);
-	y = parseInt(y);
+	var x = parseInt(x);
+	var y = parseInt(y);
 	if (getCell(x-1, y-1)) aliveCounter++;
 	if (getCell(x-1, y)) aliveCounter++;
 	if (getCell(x-1, y+1)) aliveCounter++;
@@ -99,13 +103,16 @@ function reproduce(){
 		var itemId = $(this).attr("id");
 		var item = nextAlive[itemId];
 
-		if (item == 1){
-			$(this).removeClass("cell-dead").addClass("cell-alive");
-		}else{
-			$(this).removeClass("cell-alive").addClass("cell-dead");
-		}
+		aliveToDead(item != 1, $(this));
 	});
 
+}
+
+function godsFinger(){
+	$('#content').bind('click', function(event) {
+		var cell = $("#"+event.target.id);
+		aliveToDead(cell.hasClass("cell-alive"), cell);
+	});ªiiter
 }
 
 // Starts the magic
@@ -113,4 +120,6 @@ $(document).ready(function(){
 	generateMap();
 	generateRandomCells();
 	iterateMap();
+
+	godsFinger();
 });
