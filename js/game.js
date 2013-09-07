@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const width = 80;
-const height = 50;
-const speed = 1000; // 1 second
-var nextAlive = {};
+const width 	= 80;
+const height 	= 50;
+const seed 		= 14;
+const speed 	= 1000; // 1 second
+var nextAlive 	= {};
 
 function generateMap(){
 	var content = $("#content");
 	var row = 0;
 	content.html("");
-	for (var i=0; i < height; i++) {
-		for (var j=0;  j < width; j++) {
+	for (var i=0; i<height; i++) {
+		for (var j=0; j<width; j++) {
 			content.append(getItem(row+"-"+j));
 			if (j == 0) content.children().last().addClass("item-separator");
 		};
@@ -37,7 +38,7 @@ function getItem(id){
 
 function generateRandomCells(){
 	$('#content').children('div').each(function () {
-		if (Math.floor((Math.random()*100)+1) > 14){
+		if (Math.floor((Math.random()*100)+1) > seed){
 			$(this).removeClass("cell-alive").addClass("cell-dead");
 		}else{
 			$(this).removeClass("cell-dead").addClass("cell-alive");
@@ -71,27 +72,16 @@ function setCell(x,y){
 	if (getCell(x+1, y)) aliveCounter++;	
 	if (getCell(x+1, y+1)) aliveCounter++;
 	
-	//Change cell
+	// Update cell
 	var cell = $("#"+x+"-"+y);
-	if (aliveCounter == 3){
-
-		nextAlive[x+"-"+y] = 1;
-
-	}else if(aliveCounter == 2){
-
-		nextAlive[x+"-"+y] = getDeadStatus(cell);
-
-	}else{
-
-		nextAlive[x+"-"+y] = 0;
-
-	}
+	if 		(aliveCounter == 3) nextAlive[x+"-"+y] = 1;
+	else if (aliveCounter == 2)	nextAlive[x+"-"+y] = getDeadStatus(cell);
+	else 						nextAlive[x+"-"+y] = 0;
 }
 
 function getDeadStatus(cell){
-	if (cell.hasClass("cell-alive")){
+	if (cell.hasClass("cell-alive"))
 		return 1;
-	}
 	return 0;
 }
 
@@ -118,7 +108,7 @@ function reproduce(){
 
 }
 
-//Starts the magic
+// Starts the magic
 $(document).ready(function(){
 	generateMap();
 	generateRandomCells();
